@@ -123,7 +123,7 @@ tabContainer.addEventListener('click', function (e) {
 
 // Анимация потускнения на панели навигации
 
-const navLinksHoverAnimation = function (e, opacity) {
+const navLinksHoverAnimation = function (e) {
   console.log(this, e.currentTarget);
   if (e.target.classList.contains('nav__link')) {
     const linkOver = e.target;
@@ -134,16 +134,33 @@ const navLinksHoverAnimation = function (e, opacity) {
     const logoText = linkOver.closest('.nav').querySelector('.nav__text');
 
     siblingLinks.forEach(el => {
-      if (el !== linkOver) el.style.opacity = opacity;
+      if (el !== linkOver) el.style.opacity = this;
     });
-    logo.style.opacity = opacity;
-    logoText.style.opacity = opacity;
+    logo.style.opacity = this;
+    logoText.style.opacity = this;
   }
 };
 
+// Работа с аргументами при помощи bind() / this
 nav.addEventListener('mouseover', navLinksHoverAnimation.bind(0.4));
 
 nav.addEventListener('mouseout', navLinksHoverAnimation.bind(1));
+
+// Sticky navigation
+
+const section1Coords = section1.getBoundingClientRect();
+console.log(section1Coords);
+
+window.addEventListener('scroll', function () {
+  console.log(window.scrollY);
+
+  if (window.scrollY > section1Coords.top) {
+    nav.classList.add('sticky');
+  } else {
+    nav.classList.remove('sticky');
+  }
+});
+
 ////////////////////////////////////////////////
 ////////////////////////////////////////////////
 /////////////////////////////////////////////////
