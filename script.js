@@ -216,7 +216,7 @@ const sectionObserver = new IntersectionObserver(appearanceSection, {
 
 allSections.forEach(function (section) {
   sectionObserver.observe(section);
-  section.classList.add('section--hidden');
+  // section.classList.add('section--hidden');
 });
 
 // Имплементация lazy loading для изображений
@@ -244,6 +244,48 @@ const lazyImagesObserver = new IntersectionObserver(loadImages, {
   // rootMargin: '300px',
 });
 lazyImages.forEach(image => lazyImagesObserver.observe(image));
+
+// Создание слайдера
+const slides = document.querySelectorAll('.slide');
+const btnLeft = document.querySelector('.slider__btn--left');
+const btnRight = document.querySelector('.slider__btn--right');
+
+let currentSlide = 0;
+const slidesNumber = slides.length;
+
+// const slider = document.querySelector('.slider');
+// slider.style.transform = 'scale(0.4) translateX(1300px)';
+// slider.style.overflow = 'visible';
+
+const moveToSlide = function (slide) {
+  slides.forEach(
+    (s, index) => (s.style.transform = `translateX(${(index - slide) * 100}%)`)
+  );
+};
+
+moveToSlide(0);
+
+btnRight.addEventListener('click', function () {
+  if (currentSlide === slidesNumber - 1) {
+    currentSlide = 0;
+  } else {
+    currentSlide++;
+  }
+
+  moveToSlide(currentSlide);
+  // 1 - -100%, 2 - 0%, 3 - 100%, 4 - 200%)
+});
+
+btnLeft.addEventListener('click', function () {
+  if (currentSlide === 0) {
+    currentSlide = slidesNumber - 1;
+  } else {
+    currentSlide--;
+  }
+
+  moveToSlide(currentSlide);
+  // 1 - -100%, 2 - 0%, 3 - 100%, 4 - 200%)
+});
 
 ////////////////////////////////////////////////
 ////////////////////////////////////////////////
