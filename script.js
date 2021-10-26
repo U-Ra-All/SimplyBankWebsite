@@ -515,3 +515,20 @@ dotContainer.addEventListener('click', function (e) {
 // console.log(h2.nextElementSibling);
 
 // console.log(h1.parentElement.children);
+
+/////////////////////////////////////////////////
+// Lifecycle DOM Events
+
+document.addEventListener('DOMContentLoaded', function (e) {
+  console.log('Дерево DOM создано!', e);
+});
+
+window.addEventListener('load', function (e) {
+  console.log('Страница полностью загружена', e);
+});
+
+// window.addEventListener('beforeunload', function (e) {
+//   e.preventDefault();
+//   console.log(e);
+//   e.returnValue = '';
+// });
